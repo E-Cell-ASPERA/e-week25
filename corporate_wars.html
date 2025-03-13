@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corporate Wars - Business Simulation Event</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        :root {
+            --primary: #1a2b4c;
+            --secondary: #2e4d7b;
+            --accent: #ff6b35;
+            --light: #f5f5f5;
+            --dark: #333;
+            --success: #28a745;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 20px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('/api/placeholder/1200/600');
+            background-size: cover;
+            opacity: 0.1;
+            z-index: 0;
+        }
+        
+        .header-content {
+            position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding-top: 60px;
+        }
+        
+        .back-btn {
+            position: absolute;
+    left: 20px;
+    top: 20px;
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    z-index: 2;
+        }
+        
+        .back-btn:hover {
+            color: var(--accent);
+        }
+        
+        .back-btn i {
+            margin-right: 5px;
+        }
+        
+        .event-title {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .event-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            max-width: 700px;
+        }
+        
+        .register-btn {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .register-btn:hover {
+            background-color: #ff8255;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        section {
+            padding: 60px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 40px;
+            color: var(--primary);
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--accent);
+        }
+        
+        .overview {
+            background-color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .overview-content {
+            padding: 30px;
+        }
+        
+        .overview-text {
+            margin-bottom: 20px;
+        }
+        
+        .rounds {
+            background-color: #f9f9f9;
+        }
+        
+        .rounds-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .round-card:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.round-card:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.round-card:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+.round-card:nth-child(4) {
+    animation-delay: 0.6s;
+}
+        
+        .round-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .round-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 15px 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        
+        .round-content {
+            padding: 20px;
+        }
+        
+        .round-objective {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--secondary);
+        }
+        
+        .round-description {
+            color: #666;
+        }
+        
+        .faq {
+            background-color: white;
+        }
+        
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+        
+        .faq-question {
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .faq-question i {
+            transition: all 0.3s ease;
+        }
+        
+        .faq-answer {
+            color: #666;
+            display: none;
+            padding-top: 10px;
+        }
+        
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+        
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+        
+        footer {
+            background-color: var(--primary);
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            color: white;
+            margin: 0 10px;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            color: var(--accent);
+            transform: translateY(-3px);
+        }
+        
+        @media (max-width: 768px) {
+            .event-title {
+                font-size: 2rem;
+            }
+            .header-content {
+        padding-top: 70px; /* Increase padding for more space on mobile */
+    }
+    
+    .back-btn {
+        top: 15px;
+        left: 15px;
+    }
+            .event-subtitle {
+                font-size: 1rem;
+            }
+            
+            section {
+                padding: 40px 0;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .rounds-container {
+                display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <a href="index.html" class="back-btn animate__animated animate__fadeInLeft">
+                <i class="fas fa-arrow-left"></i> Back to Events
+            </a>
+            <h1 class="event-title animate__animated animate__fadeInDown">Corporate Wars</h1>
+            <p class="event-subtitle animate__animated animate__fadeInUp">A 3-day business simulation where participants buy, enhance, sell products, and present their financial outcomes.</p>
+            <a href="https://forms.gle/wVMyx4Wd6Kb2iRqa8" class="register-btn animate__animated animate__bounceIn" target="_blank" rel="noopener noreferrer">Register Now</a>
+        </div>
+    </header>
+    
+    <section class="overview">
+        <div class="container">
+            <h2 class="section-title animate__animated animate__fadeIn">Event Overview</h2>
+            <div class="overview-content animate__animated animate__fadeInUp">
+                <p class="overview-text">Welcome to the Corporate Wars! In this competition, you and your team will navigate through four rounds, each designed to test your strategic skills and business acumen. This immersive 3-day business simulation will challenge your decision-making abilities as you bid on assets, make strategic investments, negotiate sales, and present your financial outcomes.</p>
+                <p class="overview-text">Corporate Wars provides a realistic business environment where participants can apply theoretical knowledge to practical scenarios, enhancing their understanding of market dynamics, financial management, and strategic planning.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="rounds">
+        <div class="container">
+            <h2 class="section-title animate__animated animate__fadeIn">Competition Rounds</h2>
+            <div class="rounds-container">
+                <div class="round-card animate__animated animate__fadeInUp">
+                    <div class="round-header">
+                        <i class="fas fa-gavel"></i> Round 1: Auction Round
+                    </div>
+                    <div class="round-content">
+                        <p class="round-objective">Objective: To secure an island through bidding.</p>
+                        <p class="round-description">In this round, participants will engage in a bidding process to acquire an island. Each team will be provided with a set amount of purchase power to participate in the auction. All teams will successfully acquire an island during the bidding process. Once the auction round concludes, the teams proceed to the next round.</p>
+                    </div>
+                </div>
+                
+                <div class="round-card animate__animated animate__fadeInUp">
+                    <div class="round-header">
+                        <i class="fas fa-chart-line"></i> Round 2: Investing Round
+                    </div>
+                    <div class="round-content">
+                        <p class="round-objective">Objective: To strategically invest in assets and resources.</p>
+                        <p class="round-description">In the investing round, teams will utilize the purchase power allocated to them during the auction round to invest in additional assets and resources to enhance their island. Teams can purchase add-ons such as infrastructure, amenities, or utilities to improve the value of their island. Additionally, teams have the option to pitch their ideas to investors for additional funding in exchange for equity.</p>
+                    </div>
+                </div>
+                
+                <div class="round-card animate__animated animate__fadeInUp">
+                                        <div class="round-header">
+                        <i class="fas fa-handshake"></i> Round 3: Distribution Round
+                    </div>
+                    <div class="round-content">
+                        <p class="round-objective">Objective: To generate profit through sales.</p>
+                        <p class="round-description">In the distribution round, teams must sell the assets separately and resources acquired in the previous round to generate revenue. This round tests teams' sales and negotiation skills as they strive to maximize profits. The team that generates the highest profit will have highest score.</p>
+                    </div>
+                </div>
+                
+                <div class="round-card animate__animated animate__fadeInUp">
+                                        <div class="round-header">
+                        <i class="fas fa-presentation"></i> Round 4: Presentation Round
+                    </div>
+                    <div class="round-content">
+                        <p class="round-objective">Objective: To showcase strategies, outcomes, and financial performance.</p>
+                        <p class="round-description">In the presentation round, teams will create a comprehensive presentation detailing their journey from the auction round to the distribution round. Teams must showcase detailed calculations of their purchases and sales, including the breakdown of expenses and profit. The team that achieves the break-even point faster and accumulates the highest profit within the timeline will get add on points.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="faq">
+        <div class="container">
+            <h2 class="section-title animate__animated animate__fadeIn">Frequently Asked Questions</h2>
+            <div class="faq-container animate__animated animate__fadeInUp">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        What skills will I develop during Corporate Wars?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Corporate Wars is designed to enhance your strategic thinking, negotiation skills, financial analysis, presentation abilities, teamwork, and decision-making under pressure. You'll gain practical experience in business operations from bidding to profit generation.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How many members can be in a team?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Each team should consist of 3-4 members. This size allows for diverse perspectives while ensuring every member has a meaningful role to play in the competition.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Do I need prior business knowledge to participate?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        No, Corporate Wars is designed to be accessible to participants with various levels of business knowledge. Basic understanding of business concepts is helpful but not required. Our pre-event materials will help you prepare for the competition.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        What should we prepare for the presentation round?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Your presentation should include your bidding strategy, investment decisions, sales tactics, and overall outcomes. The exact details will be announced at the beginning of the event.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Are there any prizes for winning teams?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Yes, the winning teams will receive recognition certificates, trophies, and prizes. The exact prize details will be announced at the beginning of the event. Beyond material prizes, participants gain valuable hands-on business experience that enhances their resume and professional skills.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="register" style="background-color: #f9f9f9;">
+        <div class="container" style="text-align: center;">
+            <h2 class="section-title animate__animated animate__fadeIn">Ready to Join the Corporate Wars?</h2>
+            <p style="margin-bottom: 30px; max-width: 700px; margin-left: auto; margin-right: auto;">Secure your team's spot in this exciting business simulation event. Registration closes one week before the event date.</p>
+            <a href="https://forms.gle/wVMyx4Wd6Kb2iRqa8" class="register-btn animate__animated animate__pulse animate__infinite" target="_blank" rel="noopener noreferrer">Register Your Team Now</a>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <p>© 2025 Corporate Wars. All Rights Reserved.</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Animation on scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const animatedElements = document.querySelectorAll('.animate__animated');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate__animated');
+                        
+                        // Get the animation class
+                        const animationClass = Array.from(entry.target.classList).find(cls => 
+                            cls.startsWith('animate__') && cls !== 'animate__animated' && 
+                            !cls.startsWith('animate__delay'));
+                        
+                        if (animationClass) {
+                            entry.target.classList.add(animationClass);
+                        } else {
+                            entry.target.classList.add('animate__fadeIn');
+                        }
+                        
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            animatedElements.forEach(element => {
+                const animationClass = Array.from(element.classList).find(cls => 
+                    cls.startsWith('animate__') && cls !== 'animate__animated' && 
+                    !cls.startsWith('animate__delay'));
+                
+                if (animationClass) {
+                    element.classList.remove(animationClass);
+                }
+                
+                observer.observe(element);
+            });
+            
+            // FAQ functionality
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                
+                question.addEventListener('click', () => {
+                    item.classList.toggle('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>7th Min - Entrepreneurial Challenge Event</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        :root {
+            --primary: #2b1a4c;
+            --secondary: #4a2e7b;
+            --accent: #35b6ff;
+            --light: #f5f5f5;
+            --dark: #333;
+            --success: #28a745;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 20px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('/api/placeholder/1200/600');
+            background-size: cover;
+            opacity: 0.1;
+            z-index: 0;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding-top: 60px;
+        }
+        
+        .back-btn {
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            z-index: 2;
+        }
+        
+        .back-btn:hover {
+            color: var(--accent);
+        }
+        
+        .back-btn i {
+            margin-right: 5px;
+        }
+        
+        .event-title {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .event-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            max-width: 700px;
+        }
+        
+        .register-btn {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .register-btn:hover {
+            background-color: #55a8ff;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        section {
+            padding: 60px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 40px;
+            color: var(--primary);
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--accent);
+        }
+        
+        .overview {
+            background-color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .overview-content {
+            padding: 30px;
+        }
+        
+        .overview-text {
+            margin-bottom: 20px;
+        }
+        
+        .rounds {
+            background-color: #f9f9f9;
+        }
+        
+        .rounds-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .round-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .round-card:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .round-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .round-card:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        .round-card:nth-child(4) {
+            animation-delay: 0.6s;
+        }
+        
+        .round-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .round-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 15px 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        
+        .round-content {
+            padding: 20px;
+        }
+        
+        .round-objective {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--secondary);
+        }
+        
+        .round-description {
+            color: #666;
+        }
+        
+        .faq {
+            background-color: white;
+        }
+        
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+        
+        .faq-question {
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .faq-question i {
+            transition: all 0.3s ease;
+        }
+        
+        .faq-answer {
+            color: #666;
+            display: none;
+            padding-top: 10px;
+        }
+        
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+        
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+        
+        footer {
+            background-color: var(--primary);
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            color: white;
+            margin: 0 10px;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            color: var(--accent);
+            transform: translateY(-3px);
+        }
+        
+        @media (max-width: 768px) {
+            .event-title {
+                font-size: 2rem;
+            }
+            .header-content {
+                padding-top: 70px; /* Increase padding for more space on mobile */
+            }
+            
+            .back-btn {
+                top: 15px;
+                left: 15px;
+            }
+            
+            .event-subtitle {
+                font-size: 1rem;
+            }
+            
+            section {
+                padding: 40px 0;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .rounds-container {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 30px;
+                margin-top: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <a href="index.html" class="back-btn animate__animated animate__fadeInLeft">
+                <i class="fas fa-arrow-left"></i> Back to Events
+            </a>
+            <h1 class="event-title animate__animated animate__fadeInDown">7th Min</h1>
+            <p class="event-subtitle animate__animated animate__fadeInUp">Experience the entire entrepreneurial journey in just 7 minutes through dynamic rounds that test and refine your business skills.</p>
+            <a href="https://forms.gle/26f6ULou5NC4wSE28" class="register-btn animate__animated animate__bounceIn" target="_blank" rel="noopener noreferrer">Register Now</a>
+        </div>
+    </header>
+    
+    <section class="overview">
+        <div class="container">
+            <h2 class="section-title animate__animated animate__fadeIn">Event Overview</h2>
+            <div class="overview-content animate__animated animate__fadeInUp">
+                <p class="overview-text">Welcome to 7th Min! Get ready for an exhilarating entrepreneurial journey that will test and refine your business skills through seven dynamic rounds, each simulating real-world business scenarios. In just seven minutes, you will experience the entire process of building a business—from assessing your knowledge and brainstorming ideas to acquiring resources, marketing your product, and securing investments.</p>
+                <p class="overview-text">Dedicated volunteers will guide you through each stage, ensuring an engaging and seamless experience. Whether you secure investments or face challenges along the way, this experience will equip you with valuable insights into the real world of business. Are you ready to prove your entrepreneurial skills and take on this exciting challenge?</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="rounds">
+        <div class="container">
+            <h2 class="section-title animate__animated animate__fadeIn">Challenge Rounds</h2>
+            <div class="rounds-container">
+                <div class="round-card animate__animated animate__fadeInUp">
+                    <div class="round-header">
+                        <i class="fas fa-brain"></i> Round 1: Knowledge Assessment
+                    </div>
+                    <div class="round-content">
+                        <p class="round-objective">Objective: Test your entrepreneurial knowledge.</p>
+                        <p class="round-description">The challenge begins with a rapid-fire quiz to gauge your entrepreneurial knowledge. This quiz consists of three levels—easy, medium, and hard—covering essential business topics such as market strategies, financial management, investment principles, and startup dynamics. Your performance in this round determines your initial resources, influencing your ability to strategize effectively in the following stages.</p>
+                    </div>
+                </div>
+                
+                <div class="round-card animate__animated animate__fadeInUp">
+                    <div class="round-header">
+                        <i class="fas fa-lightbulb"></i> Round 2: Brainstorming & Planning
+                    </div>
+                    <div class="round-content">
+                        <p class="round-objective">Objective: Develop your business plan and strategy.</p>
+                        <p class="round-description">In the brainstorming session, you will develop your business plan. This includes deciding on the product or service you want to create, managing your allocated budget, analyzing different stall locations for purchasing materials, and evaluating business risks. This round is crucial as it lays the groundwork for your business strategy, helping you make informed decisions in subsequent rounds.</p>
+                    </div>
+                </div>
+                
+                <div class="round-card animate__animated animate__fadeInUp">
+                    <div class="round-header">
+                        <i class="fas fa-search"></i> Round 3: Resource Hunt
+                    </div>
+                    <div class="round-content">
+                        <p class="round-objective">Objective: Locate and research essential resources.</p>
+                        <p class="round-description">Dive into a thrilling treasure hunt to locate and research the essential resources needed to bring your business idea to life. In this round, you must identify suppliers, explore cost-effective alternatives, and adapt to market conditions. This stage mimics real-world entrepreneurial challenges, where resource constraints and market fluctuations influence decision-making.</p>
+                    </div>
+                </div>
+                
+                <div class="round-card animate__animated animate__fadeInUp">
+                    <div class="round-header">
+                        <i class="fas fa-shopping-cart"></i> Round 4: Buying & Negotiation
+                    </div>
+                    <div class="round-content">
+                        <p class="round-objective">Objective: Acquire essential materials within budget.</p>
+                        <p class="round-description">With a limited budget, the buying round tests your ability to acquire essential materials while mastering negotiation, communication, and persuasion. You must bargain for the best prices, interact effectively with sellers, and use your pitching skills to secure valuable deals. Every purchase you make will impact your business's overall cost-effectiveness and profitability.</p>
+                    </div>
+                </div>
+                
+                <div class="round-card animate__animated animate__fadeInUp">
+                    <div class="round-header">
+                        <i class="fas fa-hammer"></i> Round 5: Product Building
+                    </div>
+                    <div class="round-content">
+                        <p class="round-objective">Objective: Transform resources into a functional product.</p>
+                        <p class="round-description">After securing your materials, you enter the building round, where you will transform your resources into a functional and innovative product. This stage requires you to create a unique, efficient, and feasible business offering that is accessible to a broad range of consumers. Your ability to develop a well-structured, scalable, and sustainable product will determine your success in the next stages.</p>
+                    </div>
+                </div>
+                
+                <div class="round-card animate__animated animate__fadeInUp">
+                    <div class="round-header">
+                        <i class="fas fa-ad"></i> Round 6: Advertisement
+                    </div>
+                    <div class="round-content">
+                        <p class="round-objective">Objective: Craft an engaging promotional strategy.</p>
+                        <p class="round-description">Having a great product is not enough—you need to market it effectively. In the advertisement round, you will craft an engaging promotional strategy to target your ideal customers. This stage tests your creative thinking, problem-solving abilities, and ability to make your product appealing to different demographics. The goal is to generate interest, enhance brand visibility, and ensure your product reaches its potential buyers.</p>
+                    </div>
+                </div>
+                
+                <div class="round-card animate__animated animate__fadeInUp">
+                    <div class="round-header">
+                        <i class="fas fa-chart-line"></i> Round 7: Investment & Selling
+                    </div>
+                    <div class="round-content">
+                        <p class="round-objective">Objective: Pitch your business and secure investments.</p>
+                        <p class="round-description">The final and most crucial stage is the investment and selling round, where you must pitch your business to potential investors and customers. Your ability to present your business persuasively, highlight its profit potential, and negotiate deals will determine your final success. Convincing investors to invest in your venture or generating sales through strategic marketing will ultimately showcase your entrepreneurial acumen.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="faq">
+        <div class="container">
+            <h2 class="section-title animate__animated animate__fadeIn">Frequently Asked Questions</h2>
+            <div class="faq-container animate__animated animate__fadeInUp">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How does the 7-minute timeline work?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        The event is designed to simulate a complete entrepreneurial journey in a compressed timeframe. Each round has a specific time allocation, and our experienced facilitators will guide you through the transitions. The fast-paced nature simulates the pressure of real-world business decisions.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Do I need prior business knowledge to participate?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        No prior business knowledge is required! The event is designed to be accessible to participants of all backgrounds. The first round includes a knowledge assessment that helps determine your starting resources, but all participants will be able to complete the full experience regardless of their initial score.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Can I participate individually or do I need a team?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Teams of 2-4 members are recommended as they allow for collaborative decision-making and division of tasks.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        What skills will I develop during the 7th Min challenge?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        The 7th Min challenge helps develop strategic thinking, quick decision-making, resource management, negotiation skills, creativity, marketing strategy, and pitching abilities. You'll also gain insights into the complete business lifecycle in a condensed format.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Are there any prizes for top performers?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Yes! Top-performing individuals and teams will receive recognition certificates, trophies, and prizes. Beyond material rewards, all participants will gain valuable hands-on experience that enhances their understanding of business operations and entrepreneurship.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="register" style="background-color: #f9f9f9;">
+        <div class="container" style="text-align: center;">
+            <h2 class="section-title animate__animated animate__fadeIn">Ready to Take the 7-Minute Challenge?</h2>
+            <p style="margin-bottom: 30px; max-width: 700px; margin-left: auto; margin-right: auto;">Secure your spot in this fast-paced entrepreneurial simulation. Experience the thrill of building a business in just 7 minutes!</p>
+            <a href="https://forms.gle/26f6ULou5NC4wSE28" class="register-btn animate__animated animate__pulse animate__infinite" target="_blank" rel="noopener noreferrer">Register Now</a>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <p>© 2025 7th Min Entrepreneurial Challenge. All Rights Reserved.</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Animation on scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const animatedElements = document.querySelectorAll('.animate__animated');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate__animated');
+                        
+                        // Get the animation class
+                        const animationClass = Array.from(entry.target.classList).find(cls => 
+                            cls.startsWith('animate__') && cls !== 'animate__animated' && 
+                            !cls.startsWith('animate__delay'));
+                        
+                        if (animationClass) {
+                            entry.target.classList.add(animationClass);
+                        } else {
+                            entry.target.classList.add('animate__fadeIn');
+                        }
+                        
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            animatedElements.forEach(element => {
+                const animationClass = Array.from(element.classList).find(cls => 
+                    cls.startsWith('animate__') && cls !== 'animate__animated' && 
+                    !cls.startsWith('animate__delay'));
+                
+                if (animationClass) {
+                    element.classList.remove(animationClass);
+                }
+                
+                observer.observe(element);
+            });
+            
+            // FAQ functionality
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                
+                question.addEventListener('click', () => {
+                    item.classList.toggle('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

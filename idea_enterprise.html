@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Idea to Enterprise 2025 - Business Simulation Event</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        :root {
+            --primary: #14274e;
+            --secondary: #394867;
+            --accent: #00b894;
+            --light: #f5f5f5;
+            --dark: #333;
+            --success: #28a745;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 20px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('/api/placeholder/1200/600');
+            background-size: cover;
+            opacity: 0.1;
+            z-index: 0;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding-top: 60px;
+        }
+        
+        .back-btn {
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            z-index: 2;
+        }
+        
+        .back-btn:hover {
+            color: var(--accent);
+        }
+        
+        .back-btn i {
+            margin-right: 5px;
+        }
+        
+        .event-title {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .event-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            max-width: 700px;
+        }
+        
+        .register-btn {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .register-btn:hover {
+            background-color: #00d2a8;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        section {
+            padding: 60px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 40px;
+            color: var(--primary);
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--accent);
+        }
+        
+        .overview {
+            background-color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .overview-content {
+            padding: 30px;
+        }
+        
+        .overview-text {
+            margin-bottom: 20px;
+        }
+        
+        .objectives {
+            background-color: #f9f9f9;
+        }
+        
+        .objectives-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .objective-item {
+            display: flex;
+            margin-bottom: 20px;
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .objective-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .objective-icon {
+            background-color: var(--primary);
+            color: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        .objective-content {
+            padding: 20px;
+            flex: 1;
+        }
+        
+        .benefits {
+            background-color: white;
+        }
+        
+        .benefits-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .benefit-card {
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .benefit-card:nth-child(1) {
+            animation-delay: 0s;
+        }
+        
+        .benefit-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .benefit-card:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        .benefit-card:nth-child(4) {
+            animation-delay: 0.6s;
+        }
+        
+        .benefit-card:nth-child(5) {
+            animation-delay: 0.8s;
+        }
+        
+        .benefit-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .benefit-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 15px 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        
+        .benefit-header i {
+            margin-right: 10px;
+        }
+        
+        .benefit-content {
+            padding: 20px;
+        }
+        
+        .faq {
+            background-color: #f9f9f9;
+        }
+        
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+        
+        .faq-question {
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .faq-question i {
+            transition: all 0.3s ease;
+        }
+        
+        .faq-answer {
+            color: #666;
+            display: none;
+            padding-top: 10px;
+        }
+        
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+        
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+        
+        footer {
+            background-color: var(--primary);
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            color: white;
+            margin: 0 10px;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            color: var(--accent);
+            transform: translateY(-3px);
+        }
+        
+        @media (max-width: 768px) {
+            .event-title {
+                font-size: 2rem;
+            }
+            
+            .event-subtitle {
+                font-size: 1rem;
+            }
+            
+            section {
+                padding: 40px 0;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .benefits-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .objective-item {
+                flex-direction: column;
+            }
+            
+            .objective-icon {
+                width: 100%;
+                padding: 15px;
+            }
+            
+            .header-content {
+                padding-top: 70px;
+            }
+            
+            .back-btn {
+                top: 15px;
+                left: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <a href="index.html" class="back-btn animate__animated animate__fadeInLeft">
+                <i class="fas fa-arrow-left"></i> Back to Events
+            </a>
+            <h1 class="event-title animate__animated animate__fadeInDown">Idea to Enterprise 2025</h1>
+            <p class="event-subtitle animate__animated animate__fadeInUp">Establish, manage, and grow a virtual company from an idea to a thriving enterprise.</p>
+            <a href="https://forms.gle/pBRDdG1VTsX6rUHAA" class="register-btn animate__animated animate__bounceIn" target="_blank" rel="noopener noreferrer">Register Now</a>
+        </div>
+    </header>
+    
+    <section class="overview">
+        <div class="container">
+            <h2 class="section-title animate__animated animate__fadeIn">Event Overview</h2>
+            <div class="overview-content animate__animated animate__fadeInUp">
+                <p class="overview-text">Welcome to IDEA TO ENTERPRISE 2025, where participants will embark on an entrepreneurial journey from concept to creation. In this immersive business simulation, you'll establish and manage virtual companies, navigate financial challenges, pitch to investors, and compete to build the most successful enterprise.</p>
+                <p class="overview-text">This dynamic event provides a realistic platform for aspiring entrepreneurs to learn business management through real-world simulations. You'll handle finances, investments, and operational strategies while adapting to market fluctuations as you compete for the highest company valuation.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="objectives">
+        <div class="container">
+            <h2 class="section-title animate__animated animate__fadeIn">Event Objectives</h2>
+            <div class="objectives-container">
+                <div class="objective-item animate__animated animate__fadeInRight">
+                    <div class="objective-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <div class="objective-content">
+                        <h3>Business Management Through Simulation</h3>
+                        <p>Learn essential business management skills through immersive real-world simulations that mirror the challenges and decisions entrepreneurs face daily.</p>
+                    </div>
+                </div>
+                
+                <div class="objective-item animate__animated animate__fadeInLeft">
+                    <div class="objective-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="objective-content">
+                        <h3>Financial & Operational Strategy</h3>
+                        <p>Develop expertise in handling finances, securing investments, and implementing operational strategies that drive business growth and success.</p>
+                    </div>
+                </div>
+                
+                <div class="objective-item animate__animated animate__fadeInRight">
+                    <div class="objective-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <div class="objective-content">
+                        <h3>Market Adaptation & Competition</h3>
+                        <p>Learn to adapt to market fluctuations and business challenges while competing with other participants to achieve the highest company valuation.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="benefits">
+        <div class="container">
+            <h2 class="section-title animate__animated animate__fadeIn">Why Participate?</h2>
+            <div class="benefits-container">
+                <div class="benefit-card animate__animated animate__fadeInUp">
+                    <div class="benefit-header">
+                        <i class="fas fa-rocket"></i> Experience Real-World Entrepreneurship
+                    </div>
+                    <div class="benefit-content">
+                        <p>Manage a virtual company, make strategic decisions, and compete in a dynamic business simulation that mirrors real-world entrepreneurial challenges and opportunities.</p>
+                    </div>
+                </div>
+                
+                <div class="benefit-card animate__animated animate__fadeInUp">
+                    <div class="benefit-header">
+                        <i class="fas fa-user-tie"></i> Think Like a CEO
+                    </div>
+                    <div class="benefit-content">
+                        <p>Handle finances, market challenges, and investments while scaling your business to success. Develop the mindset and decision-making skills of a successful business leader.</p>
+                    </div>
+                </div>
+                
+                <div class="benefit-card animate__animated animate__fadeInUp">
+                    <div class="benefit-header">
+                        <i class="fas fa-trophy"></i> Compete & Win
+                    </div>
+                    <div class="benefit-content">
+                        <p>Pitch to investors, adapt to surprises, and prove your startup skills to industry experts. Showcase your business acumen and compete for recognition and prizes.</p>
+                    </div>
+                </div>
+                
+                <div class="benefit-card animate__animated animate__fadeInUp">
+                    <div class="benefit-header">
+                        <i class="fas fa-network-wired"></i> Network & Learn
+                    </div>
+                    <div class="benefit-content">
+                        <p>Connect with mentors, investors, and like-minded entrepreneurs to gain insights into the startup ecosystem. Build valuable relationships that extend beyond the competition.</p>
+                    </div>
+                </div>
+                
+                <div class="benefit-card animate__animated animate__fadeInUp">
+                    <div class="benefit-header">
+                        <i class="fas fa-file-alt"></i> Boost Your Resume
+                    </div>
+                    <div class="benefit-content">
+                        <p>Gain hands-on business experience that sets you apart in the corporate and startup world. Add practical entrepreneurial skills to your resume that employers value.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="faq">
+        <div class="container">
+            <h2 class="section-title animate__animated animate__fadeIn">Frequently Asked Questions</h2>
+            <div class="faq-container animate__animated animate__fadeInUp">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Do I need prior business experience to participate?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        No prior business experience is required. IDEA TO ENTERPRISE 2025 is designed for participants at all levels, from beginners to those with some business knowledge. We provide the necessary resources and guidance to help you succeed in the competition.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How many members can be in a team?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Teams can consist of 2-4 members. This size allows for diverse perspectives and skills while ensuring every team member has a meaningful role in developing and running the virtual company.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        What resources will be provided during the event?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Participants will receive access to business simulation experience, market data, mentorship sessions with industry experts, worksheets for financial planning, and guidelines for each stage of the competition. Additional resources will be available to help teams navigate challenges.<br>Goodies will be provided , <b>laptops are mandatory</b>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How will our virtual companies be evaluated?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Evaluation criteria include company valuation, profitability, market share, innovation, sustainability, team collaboration, presentation quality, and the ability to adapt to unexpected market changes. A panel of industry experts will judge the final presentations.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Are there any prizes for winning teams?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Yes! Winning teams will receive recognition certificates, trophies, and prizes including potential internship opportunities, mentorship sessions with successful entrepreneurs, and resources to help translate their virtual company into a real-world startup.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="register" style="background-color: #f9f9f9;">
+        <div class="container" style="text-align: center;">
+            <h2 class="section-title animate__animated animate__fadeIn">Ready to Build the Next Big Thing?</h2>
+            <p style="margin-bottom: 30px; max-width: 700px; margin-left: auto; margin-right: auto;">Join IDEA TO ENTERPRISE 2025 and challenge yourself to think critically, adapt to real-world business challenges, and compete in a dynamic entrepreneurial environment!</p>
+            <a href="https://forms.gle/pBRDdG1VTsX6rUHAA" class="register-btn animate__animated animate__pulse animate__infinite" target="_blank" rel="noopener noreferrer">Register Your Team Now</a>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <p>© 2025 Idea to Enterprise. All Rights Reserved.</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Animation on scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const animatedElements = document.querySelectorAll('.animate__animated');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate__animated');
+                        
+                        // Get the animation class
+                        const animationClass = Array.from(entry.target.classList).find(cls => 
+                            cls.startsWith('animate__') && cls !== 'animate__animated' && 
+                            !cls.startsWith('animate__delay'));
+                        
+                        if (animationClass) {
+                            entry.target.classList.add(animationClass);
+                        } else {
+                            entry.target.classList.add('animate__fadeIn');
+                        }
+                        
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            animatedElements.forEach(element => {
+                const animationClass = Array.from(element.classList).find(cls => 
+                    cls.startsWith('animate__') && cls !== 'animate__animated' && 
+                    !cls.startsWith('animate__delay'));
+                
+                if (animationClass) {
+                    element.classList.remove(animationClass);
+                }
+                
+                observer.observe(element);
+            });
+            
+            // FAQ functionality
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                
+                question.addEventListener('click', () => {
+                    item.classList.toggle('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

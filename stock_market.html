@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bullseye Trader 2025 - Stock Market Simulation Event</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        :root {
+            --primary: #1a2e46;
+            --secondary: #34495e;
+            --accent: #e74c3c;
+            --light: #f5f5f5;
+            --dark: #333;
+            --success: #2ecc71;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 20px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('/api/placeholder/1200/600');
+            background-size: cover;
+            opacity: 0.1;
+            z-index: 0;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding-top: 60px;
+        }
+        
+        .back-btn {
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            z-index: 2;
+        }
+        
+        .back-btn:hover {
+            color: var(--accent);
+        }
+        
+        .back-btn i {
+            margin-right: 5px;
+        }
+        
+        .event-title {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .event-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            max-width: 700px;
+        }
+        
+        .register-btn {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .register-btn:hover {
+            background-color: #c0392b;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        section {
+            padding: 60px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 40px;
+            color: var(--primary);
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--accent);
+        }
+        
+        .overview {
+            background-color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .overview-content {
+            padding: 30px;
+        }
+        
+        .overview-text {
+            margin-bottom: 20px;
+        }
+        
+        .features {
+            background-color: #f9f9f9;
+        }
+        
+        .features-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .feature-item {
+            display: flex;
+            margin-bottom: 20px;
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .feature-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            background-color: var(--primary);
+            color: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        .feature-content {
+            padding: 20px;
+            flex: 1;
+        }
+        
+        .speaker {
+            background-color: white;
+        }
+        
+        .speaker-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .speaker-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            object-fit: cover;
+            border: 5px solid var(--primary);
+        }
+        
+        .speaker-name {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .speaker-title {
+            font-size: 1.1rem;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+        
+        .speaker-bio {
+            margin-bottom: 20px;
+        }
+        
+        .requirements {
+            background-color: #f9f9f9;
+        }
+        
+        .requirements-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .requirement-item {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+        }
+        
+        .requirement-icon {
+            color: var(--accent);
+            font-size: 1.5rem;
+            margin-right: 15px;
+        }
+        
+        .venue-details {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+        
+        .venue-item {
+            display: flex;
+            align-items: center;
+            margin: 10px 20px;
+        }
+        
+        .venue-icon {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-right: 10px;
+        }
+        
+        .faq {
+            background-color: #f9f9f9;
+        }
+        
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+        
+        .faq-question {
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .faq-question i {
+            transition: all 0.3s ease;
+        }
+        
+        .faq-answer {
+            color: #666;
+            display: none;
+            padding-top: 10px;
+        }
+        
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+        
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+        
+        .notification {
+            background-color: #fff3cd;
+            color: #856404;
+            padding: 15px;
+            margin-top: 30px;
+            border-radius: 5px;
+            text-align: center;
+            border-left: 4px solid #ffc107;
+        }
+        
+        footer {
+            background-color: var(--primary);
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            color: white;
+            margin: 0 10px;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            color: var(--accent);
+            transform: translateY(-3px);
+        }
+        
+        @media (max-width: 768px) {
+            .event-title {
+                font-size: 2rem;
+            }
+            
+            .event-subtitle {
+                font-size: 1rem;
+            }
+            
+            section {
+                padding: 40px 0;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .feature-item {
+                flex-direction: column;
+            }
+            
+            .feature-icon {
+                width: 100%;
+                padding: 15px;
+            }
+            
+            .header-content {
+                padding-top: 70px;
+            }
+            
+            .back-btn {
+                top: 15px;
+                left: 15px;
+            }
+            
+            .venue-details {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <a href="index.html" class="back-btn animate__animated animate__fadeInLeft">
+                <i class="fas fa-arrow-left"></i> Back to Events
+            </a>
+            <h1 class="event-title animate__animated animate__fadeInDown">Bullseye Trader 2025</h1>
+            <p class="event-subtitle animate__animated animate__fadeInUp">A Stock Market Simulation Event where strategy, quick decision-making, and market intuition will determine the ultimate trader!</p>
+            <a href="https://forms.gle/Twt7TwMeQYcJY1jE6" class="register-btn animate__animated animate__bounceIn" target="_blank" rel="noopener noreferrer">Register Now</a>
+        </div>
+    </header>
+    
+    <section class="overview">
+        <div class="container">
+            <h2 class="section-title animate__animated animate__fadeIn">Event Overview</h2>
+            <div class="overview-content animate__animated animate__fadeInUp">
+                <p class="overview-text">Welcome to Bullseye Trader, an immersive stock market simulation event designed to replicate the excitement and challenges of financial trading. Participants will engage in three dynamic rounds of trading, where stock prices fluctuate based on real-time news updates.</p>
+                <p class="overview-text">Unlike real-world trading, where trends and external factors influence stock prices, this event follows a controlled market environment—meaning that every price movement is dictated solely by the news provided. This ensures a fair and strategic gameplay experience, where the ability to interpret information and execute timely trades is the key to success.</p>
+                <p class="overview-text">As the game progresses, participants will face tough choices—whether to sell for a quick profit, hold onto their stocks for potential gains, or cut losses before it's too late. By the end of the final round, the team with the highest calculated portfolio value will be crowned the Ultimate Market Trader!</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title animate__animated animate__fadeIn">Event Features</h2>
+            <div class="features-container">
+                <div class="feature-item animate__animated animate__fadeInRight">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Dynamic Trading Rounds</h3>
+                        <p>Experience three intense rounds of trading with fluctuating stock prices based on news events. Test your ability to analyze information and make profitable decisions under time pressure.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item animate__animated animate__fadeInLeft">
+                    <div class="feature-icon">
+                        <i class="fas fa-newspaper"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>News-Driven Market</h3>
+                        <p>All price movements are dictated by news events provided during the simulation, creating a controlled environment where strategic thinking and information analysis are key to success.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item animate__animated animate__fadeInRight">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Team Competition</h3>
+                        <p>Form teams of 2-3 members and collaborate to develop trading strategies, analyze market information, and make collective decisions to maximize your portfolio value.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item animate__animated animate__fadeInLeft">
+                    <div class="feature-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Ultimate Trader Award</h3>
+                        <p>Compete for the title of Ultimate Market Trader! The team with the highest portfolio value at the end of the final round will be declared the winner.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="speaker">
+        <div class="container">
+            <h2 class="section-title animate__animated animate__fadeIn">Speaker Session</h2>
+            <div class="speaker-container animate__animated animate__fadeInUp">
+                
+                <h3 class="speaker-name">Mr. Shrinivas Bhavihal</h3>
+                <p class="speaker-title">Financial Market Expert</p>
+                <p class="speaker-bio">Join us for an exclusive speaker session with Mr. Shrinivas Bhavihal, who will provide valuable insights into the stock market. Learn about market trends, investment strategies, and gain knowledge that will help you make informed decisions during the simulation and beyond.</p>
+                <p class="speaker-bio">The session will cover fundamental concepts, practical tips, and real-world examples to enhance your understanding of financial markets.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="requirements">
+        <div class="container">
+            <h2 class="section-title animate__animated animate__fadeIn">Requirements</h2>
+            <div class="requirements-container animate__animated animate__fadeInUp">
+                <div class="requirement-item">
+                    <div class="requirement-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <p><strong>Team Size:</strong> 2 to 3 Members</p>
+                </div>
+                
+                <div class="requirement-item">
+                    <div class="requirement-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <p><strong>Knowledge:</strong> Basic understanding of Stock Market concepts</p>
+                </div>
+                
+                <div class="requirement-item">
+                    <div class="requirement-icon">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <p><strong>Equipment:</strong> A Calculator (Scientific preferred for Precise Calculations)</p>
+                </div>
+                
+                <div class="notification">
+                    <p><i class="fas fa-exclamation-circle"></i> Rules and Regulations will be explained at the event.</p>
+                    <p><strong>Note:</strong> Any changes made will be notified in the WhatsApp group.</p>
+                </div>
+                
+                <div class="venue-details">
+                    <div class="venue-item">
+                        <div class="venue-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <p><strong>Venue:</strong> Mechanical Seminar Hall</p>
+                    </div>
+                    
+                    <div class="venue-item">
+                        <div class="venue-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <p><strong>Time:</strong> 12:15 PM</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="faq">
+        <div class="container">
+            <h2 class="section-title animate__animated animate__fadeIn">Frequently Asked Questions</h2>
+            <div class="faq-container animate__animated animate__fadeInUp">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        What if I have little to no knowledge about stock markets?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        While basic knowledge of stock markets is recommended, the speaker session will cover fundamental concepts to help beginners. Additionally, we'll provide a brief orientation at the beginning of the event to ensure everyone understands the rules and mechanics of the simulation.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How long will the event last?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        The event is expected to last approximately 3-4 hours, including the speaker session, orientation, three trading rounds, and the final awards ceremony. Please plan accordingly.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Will there be prizes for the winning teams?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Yes! The team with the highest portfolio value will be awarded the title of Ultimate Market Trader along with exciting prizes. Additionally, there may be recognition for teams demonstrating exceptional strategy or analysis skills.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Can I form a team with students from different departments or colleges?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Yes, teams can be formed with members from different departments or colleges. The diversity of perspectives often leads to more robust trading strategies!
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Is there any registration fee for the event?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Please check the registration form for details about any applicable fees. Registration information will be completely provided when you sign up.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="register" style="background-color: #f9f9f9;">
+        <div class="container" style="text-align: center;">
+            <h2 class="section-title animate__animated animate__fadeIn">Ready to Test Your Trading Skills?</h2>
+            <p style="margin-bottom: 30px; max-width: 700px; margin-left: auto; margin-right: auto;">Join Bullseye Trader 2025 and experience the thrill of stock market trading in a simulated environment. Put your analytical skills, decision-making abilities, and market intuition to the test!</p>
+            <a href="https://forms.gle/Twt7TwMeQYcJY1jE6" class="register-btn animate__animated animate__pulse animate__infinite" target="_blank" rel="noopener noreferrer">Register Your Team Now</a>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <p>© 2025 Bullseye Trader. All Rights Reserved.</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Animation on scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const animatedElements = document.querySelectorAll('.animate__animated');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate__animated');
+                        
+                        // Get the animation class
+                        const animationClass = Array.from(entry.target.classList).find(cls => 
+                            cls.startsWith('animate__') && cls !== 'animate__animated' && 
+                            !cls.startsWith('animate__delay'));
+                        
+                        if (animationClass) {
+                            entry.target.classList.add(animationClass);
+                        } else {
+                            entry.target.classList.add('animate__fadeIn');
+                        }
+                        
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            animatedElements.forEach(element => {
+                const animationClass = Array.from(element.classList).find(cls => 
+                    cls.startsWith('animate__') && cls !== 'animate__animated' && 
+                    !cls.startsWith('animate__delay'));
+                
+                if (animationClass) {
+                    element.classList.remove(animationClass);
+                }
+                
+                observer.observe(element);
+            });
+            
+            // FAQ functionality
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                
+                question.addEventListener('click', () => {
+                    item.classList.toggle('active');
+                });
+            });
+        });
+
+        // Function to show popup warning
+function showEventConflictWarning(event) {
+  // Prevent the default link behavior
+  event.preventDefault();
+  
+  // Create confirmation dialog
+  const confirmed = confirm("IMPORTANT NOTICE: Please be aware that Squid Game and Bullseye Trader (Stock Market Simulation) events happen simultaneously. You can only attend one of these events. Do you wish to continue with registration?");
+  
+  // If user confirms, proceed to the registration form
+  if (confirmed) {
+    window.open(this.href, '_blank');
+  }
+}
+
+// Add event listener to registration buttons
+document.addEventListener('DOMContentLoaded', function() {
+  // Find all registration buttons/links
+  const regButtons = document.querySelectorAll('.register-btn, a[href*="registration"], a[href*="forms"]');
+  
+  // Add click event handler to each button
+  regButtons.forEach(button => {
+    button.addEventListener('click', showEventConflictWarning);
+  });
+});
+
+    </script>
+</body>
+</html>

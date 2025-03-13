@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-Week'25 - The Bait & Switch</title>
+  <style>
+    :root {
+      --primary: #ff6b35;
+      --secondary: #2ec4b6;
+      --dark: #011627;
+      --light: #fdfffc;
+      --accent: #e71d36;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--dark);
+      color: var(--light);
+      overflow-x: hidden;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    .hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: linear-gradient(rgba(1, 22, 39, 0.8), rgba(1, 22, 39, 0.9)), url("/api/placeholder/1200/800") center/cover;
+      position: relative;
+    }
+    
+    .hero h1 {
+      font-size: 5rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+      text-transform: uppercase;
+      text-shadow: 3px 3px 0px var(--dark);
+    }
+    
+    .hero h2 {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      color: var(--secondary);
+    }
+    
+    .hero p {
+      font-size: 1.2rem;
+      max-width: 700px;
+      margin-bottom: 2rem;
+    }
+    
+    .reveal-btn {
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      background-color: var(--primary);
+      color: var(--light);
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    
+    .reveal-btn:hover {
+      background-color: var(--accent);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    }
+    
+    .reveal-btn:active {
+      transform: translateY(1px);
+    }
+    
+    .main-content {
+      padding: 50px 0;
+      display: none;
+    }
+    
+    .events-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 50px;
+    }
+    
+    .event-card {
+      background: linear-gradient(135deg, rgba(46, 196, 182, 0.1), rgba(231, 29, 54, 0.1));
+      border-radius: 15px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      position: relative;
+      height: 400px;
+      border: 2px solid transparent;
+      cursor: pointer;
+    }
+    
+    .event-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 30px rgba(0,0,0,0.3);
+      border-color: var(--primary);
+    }
+    
+    .event-card-inner {
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    
+    .event-icon {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      color: var(--primary);
+    }
+    
+    .event-title {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+      color: var(--secondary);
+    }
+    
+    .event-description {
+      margin-bottom: 20px;
+      flex-grow: 1;
+    }
+    
+    .event-btn {
+      background-color: var(--primary);
+      color: var(--light);
+      border: none;
+      padding: 10px 20px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+      margin-right: 10px;
+      margin-bottom: 10px;
+    }
+    
+    .event-btn:hover {
+      background-color: var(--accent);
+    }
+    
+    .event-btn.secondary {
+      background-color: transparent;
+      border: 2px solid var(--primary);
+    }
+    
+    .event-btn.secondary:hover {
+      background-color: rgba(255, 107, 53, 0.1);
+    }
+    
+    .event-details {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: var(--dark);
+      padding: 30px;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      overflow: auto;
+    }
+    
+    .event-card.active .event-details {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .close-details {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: none;
+      border: none;
+      color: var(--light);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    
+    .event-dates {
+      text-align: center;
+      margin: 40px 0;
+      padding: 20px;
+      background: linear-gradient(135deg, rgba(46, 196, 182, 0.1), rgba(231, 29, 54, 0.1));
+      border-radius: 15px;
+    }
+    
+    .event-dates h2 {
+      color: var(--primary);
+      margin-bottom: 15px;
+    }
+    
+    .event-dates p {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: var(--secondary);
+    }
+    
+    .confetti {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      background-color: var(--primary);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    
+    .faq-section {
+      margin-top: 50px;
+      background: linear-gradient(135deg, rgba(46, 196, 182, 0.1), rgba(231, 29, 54, 0.1));
+      padding: 30px;
+      border-radius: 15px;
+    }
+    
+    .faq-section h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: var(--secondary);
+    }
+    
+    .faq-item {
+      margin-bottom: 20px;
+      border-bottom: 1px solid rgba(253, 255, 252, 0.1);
+      padding-bottom: 20px;
+    }
+    
+    .faq-question {
+      font-weight: bold;
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      color: var(--primary);
+    }
+    
+    .faq-answer {
+      line-height: 1.6;
+    }
+    
+    footer {
+      margin-top: 50px;
+      padding: 40px 0;
+      background-color: rgba(1, 22, 39, 0.8);
+      border-top: 1px solid rgba(253, 255, 252, 0.1);
+    }
+    
+    .footer-content {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 30px;
+    }
+    
+    .footer-section {
+      flex: 1;
+      min-width: 250px;
+    }
+    
+    .footer-section h3 {
+      color: var(--primary);
+      margin-bottom: 20px;
+      font-size: 1.3rem;
+    }
+    
+    .footer-section p {
+      margin-bottom: 10px;
+      line-height: 1.6;
+    }
+    
+    .social-icons {
+      display: flex;
+      gap: 15px;
+      margin-top: 15px;
+    }
+    
+    .social-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: rgba(253, 255, 252, 0.1);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.3s ease;
+    }
+    
+    .social-icon:hover {
+      background-color: var(--primary);
+    }
+    
+    .footer-bottom {
+      margin-top: 40px;
+      text-align: center;
+      padding-top: 20px;
+      border-top: 1px solid rgba(253, 255, 252, 0.1);
+    }
+    
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 3rem;
+      }
+      
+      .hero h2 {
+        font-size: 1.5rem;
+      }
+      
+      .footer-content {
+        flex-direction: column;
+      }
+    }
+    
+    .hidden-message {
+      position: absolute;
+      width: 100%;
+      text-align: center;
+      top: 85%;
+      font-size: 0.8rem;
+      color: rgba(253, 255, 252, 0.3);
+    }
+  </style>
+</head>
+<body>
+  <div class="hero">
+    <h1>FREE ATTENDANCE!</h1>
+    <h2>Wait... Is It Really?</h2>
+    <p>Congratulations! You've been bamboozled, intrigued, or perhaps both? There's something exciting behind this mysterious QR code you just scanned...</p>
+    <button class="reveal-btn" id="revealBtn">REVEAL THE TRUTH</button>
+    <div class="hidden-message">*terms and conditions may apply... by which we mean there's an awesome event waiting for you!</div>
+  </div>
+  
+  <div class="main-content" id="mainContent">
+    <div class="container">
+      <h1 style="text-align: center; margin-bottom: 20px; color: var(--primary);">E-WEEK'25</h1>
+      <h2 style="text-align: center; margin-bottom: 50px; color: var(--secondary);">ASPIRE WITH ASPERA</h2>
+      
+      <p style="text-align: center; max-width: 800px; margin: 0 auto 30px;">Sorry about the bait and switch... but we had to get your attention somehow! Welcome to the biggest event by E-Cell ASPERA Club - a week-long entrepreneurial extravaganza. Are you ready to challenge yourself, connect with visionaries, and transform ideas into reality?</p>
+      
+      <!-- Event Dates (Replacing Countdown) -->
+      <div class="event-dates">
+        <h2>Mark Your Calendar!</h2>
+        <p>E-Week'25: March 17th - 23rd, 2025</p>
+      </div>
+      
+      <div class="events-container">
+
+        <!-- 7th Minute -->
+        <div class="event-card" id="seventhMinute">
+            <div class="event-card-inner">
+              <div class="event-icon">⏳</div>
+              <h3 class="event-title">7th Minute</h3>
+              <p class="event-description">Seven minutes. One chance. Pitch your groundbreaking idea under pressure and prove you can thrive when every second counts.</p>
+              <div>
+                <a href="https://forms.gle/26f6ULou5NC4wSE28" class="event-btn">Register Now</a>
+                <a href="7th_min.html" class="event-btn secondary">Know More</a>
+              </div>
+            </div>
+            <div class="event-details">
+              <button class="close-details">✕</button>
+              <h3 style="color: var(--primary); margin-bottom: 20px;">7th Minute: When Every Second Counts</h3>
+              <p>In the world of startups, your elevator pitch can make or break your future. 7th Minute puts you on the spot with our unique pitch challenge:</p>
+              <ul style="margin: 15px 0 15px 20px;">
+                <li>Precisely 7 minutes to present your innovation</li>
+                <li>Face questions from our panel of "investors"</li>
+                <li>Defend your business model under rapid-fire scrutiny</li>
+                <li>Compete for the attention and approval of industry experts</li>
+              </ul>
+              <p>Whether you have a real business idea or want to practice your pitching skills with our provided scenarios, this is your chance to experience the pressure and exhilaration of selling your vision when the clock is ticking.</p>
+              <p style="margin-top: 15px;"><strong>Can you make magic happen in the 7th minute?</strong></p>
+              <div style="margin-top: 20px;">
+                <a href="https://forms.gle/26f6ULou5NC4wSE28" class="event-btn">Register Now</a>
+                <a href="7th_min.html" class="event-btn secondary">Know More</a>
+              </div>
+            </div>
+          </div>
+        
+        
+        <!-- Stock Market -->
+        <div class="event-card" id="stockMarket">
+          <div class="event-card-inner">
+            <div class="event-icon">📈</div>
+            <h3 class="event-title">Stock Market</h3>
+            <p class="event-description">Dive into the pulse-pounding world of trading. Navigate the volatility, make bold moves, and emerge as the ultimate market maven.</p>
+            <div>
+              <a href="https://forms.gle/Twt7TwMeQYcJY1jE6" class="event-btn">Register Now</a>
+              <a href="stock_market.html" class="event-btn secondary">Know More</a>
+            </div>
+          </div>
+          <div class="event-details">
+            <button class="close-details">✕</button>
+            <h3 style="color: var(--primary); margin-bottom: 20px;">Stock Market: Trade Your Way to Glory</h3>
+            <p>Think you can beat the market? Here's your chance to prove it! Our Stock Market simulation gives you a virtual trading platform with real-world dynamics:</p>
+            <ul style="margin: 15px 0 15px 20px;">
+              <li>Start with seed capital and grow your portfolio</li>
+              <li>Analyze market trends and make strategic investments</li>
+              <li>React to breaking news that affects stock values</li>
+              <li>Compete against fellow traders in real-time</li>
+            </ul>
+            <p>Experience the thrill of the trading floor without the risk! Our compressed timeframe means you'll see days of market movement in minutes, testing your ability to make quick, smart decisions.</p>
+            <p style="margin-top: 15px;"><strong>Will you emerge as the Wolf of E-Week Street?</strong></p>
+            <div style="margin-top: 20px;">
+              <a href="https://forms.gle/Twt7TwMeQYcJY1jE6" class="event-btn">Register Now</a>
+              <a href="stock_market.html" class="event-btn secondary">Know More</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Squid Game -->
+        <div class="event-card" id="squidGame">
+          <div class="event-card-inner">
+            <div class="event-icon">🎮</div>
+            <h3 class="event-title">Squid Game</h3>
+            <p class="event-description">Not just a game—this is a test of strategy, adaptability, and nerve. Do you have what it takes to cross the finish line?</p>
+            <div>
+              <a href="https://forms.gle/dqmBoRKKCdm8iRg3A" class="event-btn">Register Now</a>
+              <a href="squid_game.html" class="event-btn secondary">Know More</a>
+            </div>
+          </div>
+          <div class="event-details">
+            <button class="close-details">✕</button>
+            <h3 style="color: var(--primary); margin-bottom: 20px;">Squid Game: Where Strategy Meets Survival</h3>
+            <p>Inspired by the global phenomenon but with an entrepreneurial twist! Our Squid Game challenges you through a series of seemingly simple tasks that require complex thinking:</p>
+            <ul style="margin: 15px 0 15px 20px;">
+              <li>Form alliances or go solo - choose wisely!</li>
+              <li>Each round eliminates players who can't adapt</li>
+              <li>Rules change without warning - just like in business</li>
+              <li>Test your problem-solving under extreme pressure</li>
+            </ul>
+            <p>Don't worry - our version doesn't have the dire consequences of the show! But the adrenaline rush and strategic challenges will feel just as real. Every game tests a different entrepreneurial skill, from resource management to risk assessment.</p>
+            <p style="margin-top: 15px;"><strong>Will you be the last contestant standing?</strong></p>
+            <div style="margin-top: 20px;">
+              <a href="https://forms.gle/dqmBoRKKCdm8iRg3A" class="event-btn">Register Now</a>
+              <a href="squid_game.html" class="event-btn secondary">Know More</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Corporate Wars -->
+        <div class="event-card" id="corporateWars">
+            <div class="event-card-inner">
+              <div class="event-icon">💼</div>
+              <h3 class="event-title">Corporate Wars</h3>
+              <p class="event-description">Enter the boardroom battlefield where only the sharpest minds survive. Do you have what it takes to outthink and outmaneuver your competition?</p>
+              <div>
+                <a href="https://forms.gle/wVMyx4Wd6Kb2iRqa8" class="event-btn">Register Now</a>
+                <a href="corporate_wars.html" class="event-btn secondary">Know More</a>
+              </div>
+            </div>
+            <div class="event-details">
+              <button class="close-details">✕</button>
+              <h3 style="color: var(--primary); margin-bottom: 20px;">Corporate Wars: The Ultimate Business Showdown</h3>
+              <p>Welcome to the fiercest corporate simulation you'll ever experience! Corporate Wars pits team against team in a multi-round business strategy challenge that will test your:</p>
+              <ul style="margin: 15px 0 15px 20px;">
+                <li>Strategic thinking under pressure</li>
+                <li>Resource management skills</li>
+                <li>Negotiation and alliance-building abilities</li>
+                <li>Crisis management and pivoting strategies</li>
+              </ul>
+              <p>Each team will run a virtual company through market shifts, competitor moves, and unexpected crises. Your decisions will directly impact your company's performance, market share, and ultimately, survival.</p>
+              <p style="margin-top: 15px;"><strong>Do you have what it takes to be the last corporation standing?</strong></p>
+              <div style="margin-top: 20px;">
+                <a href="https://forms.gle/wVMyx4Wd6Kb2iRqa8" class="event-btn">Register Now</a>
+                <a href="corporate_wars.html" class="event-btn secondary">Know More</a>
+              </div>
+            </div>
+          </div>
+        
+        <!-- Idea to Enterprise -->
+        <div class="event-card" id="ideaToEnterprise">
+          <div class="event-card-inner">
+            <div class="event-icon">💡</div>
+            <h3 class="event-title">Idea to Enterprise</h3>
+            <p class="event-description">Ideas are powerful—but execution is everything. Showcase your vision and chart the path from concept to market dominance.</p>
+            <div>
+              <a href="https://forms.gle/pBRDdG1VTsX6rUHAA" class="event-btn">Register Now</a>
+              <a href="idea_enterprise.html" class="event-btn secondary">Know More</a>
+            </div>
+          </div>
+          <div class="event-details">
+            <button class="close-details">✕</button>
+            <h3 style="color: var(--primary); margin-bottom: 20px;">Idea to Enterprise: From Concept to Creation</h3>
+            <p>The ultimate test of entrepreneurial vision! Idea to Enterprise is our flagship competition that takes you through the complete journey of building a business:</p>
+            <ul style="margin: 15px 0 15px 20px;">
+              <li>Develop a comprehensive business plan</li>
+              <li>Create a prototype or proof of concept</li>
+              <li>Design a go-to-market strategy</li>
+              <li>Present to real investors and industry mentors</li>
+            </ul>
+            <p>Unlike our other fast-paced challenges, this event spans the entire E-Week, giving you time to refine your concept with feedback from mentors. The final presentation could be your first step toward turning your idea into reality!</p>
+            <p style="margin-top: 15px;"><strong>Are you ready to build the next big thing?</strong></p>
+            <div style="margin-top: 20px;">
+              <a href="https://forms.gle/pBRDdG1VTsX6rUHAA" class="event-btn">Register Now</a>
+              <a href="idea_enterprise.html" class="event-btn secondary">Know More</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- FAQ Section (Replacing Registration Form) -->
+      <div class="faq-section">
+        <h2>Frequently Asked Questions</h2>
+        
+        <div class="faq-item">
+          <div class="faq-question">Who can participate in E-Week'25?</div>
+          <div class="faq-answer">E-Week'25 is open to all college students, regardless of their course or year of study. We welcome anyone with an entrepreneurial mindset and a passion for innovation!</div>
+        </div>
+        
+        <div class="faq-item">
+          <div class="faq-question">Is there a participation fee?</div>
+          <div class="faq-answer">Most events in E-Week'25 have a nominal registration fee that varies by event. Check individual event pages for specific details.</div>
+        </div>
+        
+        <div class="faq-item">
+          <div class="faq-question">Can I participate in multiple events?</div>
+          <div class="faq-answer">Absolutely! You can register for as many events as you want. We've designed the schedule to minimize overlaps between major events.</div>
+        </div>
+        
+        <div class="faq-item">
+          <div class="faq-question">Do I need to come with a team?</div>
+          <div class="faq-answer">It depends on the event. Some events require teams while others are individual competitions.</div>
+        </div>
+        
+        <div class="faq-item">
+          <div class="faq-question">Are there any prizes?</div>
+          <div class="faq-answer">Yes! Each event has exciting prizes for winners including cash prizes, internship opportunities, mentorship sessions with industry experts, and much more.</div>
+        </div>
+        
+        <div class="faq-item">
+          <div class="faq-question">Will I get a certificate for participating?</div>
+          <div class="faq-answer">All participants will receive digital participation certificates. Winners and runners-up will receive special recognition certificates.</div>
+        </div>
+      </div>
+      
+      <!-- Footer -->
+      <footer>
+        <div class="container">
+          <div class="footer-content">
+            <div class="footer-section">
+              <h3>About ASPERA</h3>
+              <p>E-Cell ASPERA is the premier entrepreneurship cell at our college, dedicated to fostering innovation and entrepreneurial skills among students. We organize workshops, speaker sessions, and competitions throughout the year.</p>
+            </div>
+            
+            <div class="footer-section">
+              <h3>Contact Us</h3>
+              <p>Email: helloaspera@gmail.com</p>
+              <p>Phone: +91 7975628257</p>
+              <p>Address: VVCE Campus</p>
+            </div>
+            
+            <div class="footer-section">
+              <h3>Connect With Us</h3>
+              <p>Follow us on social media for live updates and behind-the-scenes content!</p>
+              <div class="social-icons">
+                <a href="https://www.facebook.com/vvce.aspera/" class="social-icon">📱</a>
+                <a href="https://www.linkedin.com/company/e-cell-aspera-vvce" class="social-icon">📘</a>
+                <a href="https://www.instagram.com/vvce_aspera?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" class="social-icon">📸</a>
+                <a href="https://x.com/vvce_aspera" class="social-icon">🐦</a>
+              </div>
+            </div>
+          </div>
+          
+          <div class="footer-bottom">
+            <p>&copy; 2025 E-Week by E-Cell ASPERA. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+  
+  <script>
+    // Reveal animation
+    document.getElementById('revealBtn').addEventListener('click', function() {
+      // Create confetti effect
+      for (let i = 0; i < 100; i++) {
+        createConfetti();
+      }
+      
+      // Hide hero and show main content
+      document.querySelector('.hero').style.display = 'none';
+      document.getElementById('mainContent').style.display = 'block';
+      
+      // Scroll to top
+      window.scrollTo(0, 0);
+    });
+    
+    // Create confetti
+    function createConfetti() {
+      const confetti = document.createElement('div');
+      confetti.classList.add('confetti');
+      
+      // Random position
+      const startX = Math.random() * window.innerWidth;
+      const startY = Math.random() * window.innerHeight;
+      
+      // Random color
+      const colors = ['#ff6b35', '#2ec4b6', '#e71d36', '#fdfffc', '#ffb400'];
+      const randomColor = colors[Math.floor(Math.random() * colors.length)];
+      
+      // Random size
+      const size = Math.random() * 10 + 5;
+      
+      // Set styles
+      confetti.style.left = startX + 'px';
+      confetti.style.top = startY + 'px';
+      confetti.style.backgroundColor = randomColor;
+      confetti.style.width = size + 'px';
+      confetti.style.height = size + 'px';
+      
+      document.body.appendChild(confetti);
+      
+      // Animate falling
+      const animationDuration = Math.random() * 3 + 2;
+      confetti.style.animation = `fall ${animationDuration}s linear forwards`;
+      
+      // Add keyframes
+      const keyframes = `
+        @keyframes fall {
+          to {
+            transform: translateY(${window.innerHeight}px) rotate(${Math.random() * 360}deg);
+            opacity: 0;
+          }
+        }
+      `;
+      
+      const styleSheet = document.createElement('style');
+      styleSheet.textContent = keyframes;
+      document.head.appendChild(styleSheet);
+      
+      // Remove after animation
+      setTimeout(() => {
+        confetti.remove();
+        styleSheet.remove();
+      }, animationDuration * 1000);
+    }
+    
+    // Event details toggle
+    document.querySelectorAll('.event-card').forEach(card => {
+      card.addEventListener('click', function(e) {
+        // Prevent click on buttons from toggling card
+        if (e.target.classList.contains('event-btn')) {
+          return;
+        }
+        
+        this.classList.add('active');
+      });
+      
+      const closeBtn = card.querySelector('.close-details');
+      closeBtn.addEventListener('click', (e) => {
+        card.classList.remove('active');
+        e.stopPropagation();
+      });
+    });
+  </script>
+</body>
+</html>
